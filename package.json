@@ -1,4 +1,23 @@
 {
+  "name": "ffs-order-monitor",
+  "version": "0.0.1",
+  "description": "Modified OrdersMonitor with server",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dogwong/ffs-order-monitor.git"
+  },
+  "author": "dogwong",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dogwong/ffs-order-monitor/issues"
+  },
+  "homepage": "https://github.com/dogwong/ffs-order-monitor#readme",
   "dependencies": {
     "express": "^5.1.0",
     "js2bin": "^1.0.9",
