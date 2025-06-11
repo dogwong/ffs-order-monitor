@@ -5,8 +5,13 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-const io = new Server(server);
-const port = 30001;
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
+const port = 16430;
 
 // Web Server part
 app.use(express.json());
@@ -26,9 +31,23 @@ app.get("/orders_export.js", (req, res) => {
 
 // add a delay to the server start to ensure the events and orders are loaded
 setTimeout(() => {
-  server.listen(port, () => {
-    console.log(`OrdersMonitor listening on port ${port}`);
-  });
+  try {
+    server.listen(port, () => {
+      console.log(`OrdersMonitor listening on port ${port}`);
+      console.log("IP address:");
+      // show IP addresses
+      const interfaces = require('os').networkInterfaces();
+      for (const interface of Object.values(interfaces)) {
+        for (const address of interface) {
+          if (address.family === 'IPv4' && address.internal) {
+            console.log(`${address.address}`);
+          }
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error starting server:", error);
+  }
 }, 500);
 
 io.on("connection", (socket) => {
